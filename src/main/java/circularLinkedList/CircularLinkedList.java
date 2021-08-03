@@ -59,6 +59,27 @@ public class CircularLinkedList implements List {
         size++;
     }
 
+
+    /**
+     *
+     * @param element to be added in the beginning of the list
+     */
+    @Override
+    public void push(int element) {
+        Node new_node = new Node(element);
+        if(head == null) {
+            head = tail = new_node;
+            tail.next = head;
+            size++;
+        }
+        else {
+            new_node.next = head.next;
+            head = new_node;
+            tail.next = head;
+            size++;
+        }
+    }
+
     /**
      *
      * @param element to be added after elementInTheList
@@ -76,22 +97,23 @@ public class CircularLinkedList implements List {
             temp = temp.next;
         } while(temp != head);
 
+
         Node new_node = new Node(element);
+        if(temp == tail) {
+            tail = new_node;
+            tail.next = head;
+        }
         Node next_node = temp.next;
         temp.next = new_node;
         new_node.next = next_node;
         size++;
     }
 
-    @Override
-    public void push(int element) {
-
-    }
 
     /**
      *
      * @param element  to be removed from the list
-     * @return
+     * @return - returns the removed element
      */
     @Override
     public int remove(int element) {
@@ -102,6 +124,20 @@ public class CircularLinkedList implements List {
             head = head.next;
             size--;
             return element;
+        }
+
+        if(tail.data == element) {
+            //Find reference to element prior to tail
+            Node temp = head;
+            while(temp.next!=tail) {
+                temp = temp.next;
+            }
+
+            int data = tail.data;
+            tail = temp;
+            tail.next = head;
+            size--;
+            return data;
         }
 
         Node temp = head;
@@ -117,6 +153,30 @@ public class CircularLinkedList implements List {
         }
         size--;
         return element;
+    }
+
+
+    /**
+     *
+     * @return the head after removal
+     */
+    public int removeHead() {
+        if(head == null)
+            throw new IllegalArgumentException("Cannot delete from an empty list");
+
+        if(head == tail) {
+            int data = head.data;
+            head = tail = null;
+            size--;
+            return data;
+        }
+
+        int data = head.data;
+        Node next_node = head.next;
+        tail.next = next_node;
+        head = next_node;
+        size--;
+        return data;
     }
 
     @Override

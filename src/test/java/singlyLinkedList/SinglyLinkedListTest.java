@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class SinglyLinkedListTest {
+public class SinglyLinkedListTest {
 
 
     private final SinglyLinkedList testSinglyLinkedList = new SinglyLinkedList();
@@ -18,7 +18,7 @@ class SinglyLinkedListTest {
     }
 
     @Test
-    void testPush() {
+    public void testPush() {
         testSinglyLinkedList.push(11);
         testSinglyLinkedList.push(12);
         Assertions.assertEquals(12, testSinglyLinkedList.size());
@@ -27,7 +27,7 @@ class SinglyLinkedListTest {
     }
 
     @Test
-    void testInsertAfter() {
+    public void testInsertAfter() {
         testSinglyLinkedList.insertAfter(testSinglyLinkedList.head.next, 18);
         Assertions.assertEquals(18, testSinglyLinkedList.head.next.next.data);
         Assertions.assertEquals(8, testSinglyLinkedList.head.next.next.next.data);
@@ -35,7 +35,7 @@ class SinglyLinkedListTest {
     }
 
     @Test
-    void testAppend() {
+    public void testAppend() {
         testSinglyLinkedList.append(111);
         Node t = testSinglyLinkedList.head;
         while (t.next != null)
@@ -44,13 +44,13 @@ class SinglyLinkedListTest {
     }
 
     @Test
-    void testSize() {
+    public void testSize() {
         testSinglyLinkedList.push(20);
         Assertions.assertEquals(11,testSinglyLinkedList.size());
     }
 
     @Test
-    void removeFirst() {
+    public void removeFirst() {
         for (int i = 10; i >= 1; i--) {
             System.out.println(i);
             Assertions.assertEquals(i, testSinglyLinkedList.removeFirst());
@@ -60,7 +60,7 @@ class SinglyLinkedListTest {
     }
 
     @Test
-    void testIsEmpty() {
+    public void testIsEmpty() {
         for (int i = 10; i >= 1; i--) {
             Assertions.assertEquals(i, testSinglyLinkedList.removeFirst());
         }
@@ -102,6 +102,6 @@ class SinglyLinkedListTest {
     @Test
     void testClear() {
         testSinglyLinkedList.clear();
-        Assertions.assertThrows(IllegalArgumentException.class,() -> testSinglyLinkedList.removeFirst());
+        Assertions.assertThrows(IllegalArgumentException.class, testSinglyLinkedList::removeFirst);
     }
 }
