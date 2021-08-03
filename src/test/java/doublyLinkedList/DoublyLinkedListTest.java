@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DoublyLinkedListTest {
+public class DoublyLinkedListTest {
 
     private final DoublyLinkedList doublyLinkedList = new DoublyLinkedList();
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         for (int i = 1; i <= 10; i++) {
             doublyLinkedList.add(i);
         }
@@ -19,7 +19,7 @@ class DoublyLinkedListTest {
     }
 
     @Test
-    void testPush() {
+    public void testPush() {
         doublyLinkedList.push(200);
         assertEquals(200, doublyLinkedList.head.data);
         doublyLinkedList.push(300);
@@ -32,7 +32,7 @@ class DoublyLinkedListTest {
     }
 
     @Test
-    void addAfterNode() {
+    public void addAfterNode() {
         doublyLinkedList.addAfterNode(100, 1);
         assertEquals(100, doublyLinkedList.head.next.data);
         assertEquals(100, doublyLinkedList.head.next.next.previous.data);
@@ -42,14 +42,14 @@ class DoublyLinkedListTest {
     }
 
     @Test
-    void add() {
+    public void add() {
         doublyLinkedList.add(100);
         assertTrue(doublyLinkedList.contains(100));
         assertEquals(11, doublyLinkedList.size());
     }
 
     @Test
-    void testRemove() {
+    public void testRemove() {
         doublyLinkedList.remove(10);
         assertFalse(doublyLinkedList.contains(10));
         doublyLinkedList.remove(1);
@@ -60,7 +60,7 @@ class DoublyLinkedListTest {
 
 
     @Test
-    void testRemoveLast() {
+    public void testRemoveLast() {
         doublyLinkedList.add(11);//adding an element to the tail
         assertTrue(doublyLinkedList.contains(11));
         doublyLinkedList.removeLast();
@@ -68,7 +68,7 @@ class DoublyLinkedListTest {
     }
 
     @Test
-    void testRemoveFirst() {
+    public void testRemoveFirst() {
         for(int i =0; i<10; i++) {
             doublyLinkedList.removeFirst();
         }
