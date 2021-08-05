@@ -26,7 +26,7 @@ public interface List {
      *
      * @param element to be added in the list
      */
-    void push(int element);
+    void add(int element);
 
 
     /**

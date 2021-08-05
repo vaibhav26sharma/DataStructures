@@ -98,7 +98,6 @@ public class DoublyLinkedList implements List {
      * this function is to insert a new element at the front
      * @param element to be added in the list
      */
-    @Override
     public void push(int element) {
         Node new_node = new Node(element);
         if(head==null) {

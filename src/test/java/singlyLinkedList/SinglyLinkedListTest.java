@@ -13,14 +13,14 @@ public class SinglyLinkedListTest {
     @BeforeEach
     public void setUp() {
         for (int i = 1; i <= 10; i++) {
-            testSinglyLinkedList.push(i);
+            testSinglyLinkedList.add(i);
         }
     }
 
     @Test
     public void testPush() {
-        testSinglyLinkedList.push(11);
-        testSinglyLinkedList.push(12);
+        testSinglyLinkedList.add(11);
+        testSinglyLinkedList.add(12);
         Assertions.assertEquals(12, testSinglyLinkedList.size());
         testSinglyLinkedList.printList();
         System.out.println("Last "+testSinglyLinkedList.findLast());
@@ -45,7 +45,7 @@ public class SinglyLinkedListTest {
 
     @Test
     public void testSize() {
-        testSinglyLinkedList.push(20);
+        testSinglyLinkedList.add(20);
         Assertions.assertEquals(11,testSinglyLinkedList.size());
     }
 
@@ -95,7 +95,7 @@ public class SinglyLinkedListTest {
     void testContains() {
         Assertions.assertFalse(testSinglyLinkedList.contains(100));
         Assertions.assertTrue(testSinglyLinkedList.contains(10));
-        testSinglyLinkedList.push(100);
+        testSinglyLinkedList.add(100);
         Assertions.assertTrue(testSinglyLinkedList.contains(100));
     }
 

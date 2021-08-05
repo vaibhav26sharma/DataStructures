@@ -64,7 +64,6 @@ public class CircularLinkedList implements List {
      *
      * @param element to be added in the beginning of the list
      */
-    @Override
     public void push(int element) {
         Node new_node = new Node(element);
         if(head == null) {
