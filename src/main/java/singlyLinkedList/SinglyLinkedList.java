@@ -27,7 +27,7 @@ public class SinglyLinkedList implements List {
      * As an input it takes the data of new node
      * <p>
      */
-    public void push(int data) {
+    public void add(int data) {
         Node new_node = new Node(data);
         new_node.next = head;
         head = new_node;
