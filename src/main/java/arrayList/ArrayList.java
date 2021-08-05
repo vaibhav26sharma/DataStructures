@@ -48,11 +48,15 @@ public class ArrayList implements List {
         return false;
     }
 
+    @Override
+    public void push(int element) {
+
+    }
+
     /**
      * <p>This method adds the specified element at the end of list.</p>
      * @param element to be added in the list
      */
-    @Override
     public void add(int element) {
         //Check if array has space
         if (elements.length == size) {
@@ -60,6 +64,7 @@ public class ArrayList implements List {
         }
         elements[size++] = element;
     }
+
 
     /**
      * <p></p>
