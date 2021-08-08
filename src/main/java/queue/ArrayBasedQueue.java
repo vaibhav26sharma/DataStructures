@@ -60,6 +60,7 @@ public class ArrayBasedQueue<T> implements Queue<T>, Iterable<T> {
             front = 0;
             rear = 0;
             elements[rear] = element;
+            size++;
         } else if (rear == size - 1 && front != 0) { //if rear has reached the end of index and front isn't 0 i.e. there is space in the front of the queue
             rear = 0;
             elements[rear] = element;

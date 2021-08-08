@@ -10,6 +10,12 @@ public class StackBasedQueue<T> implements Queue<T>, Iterable<T> {
     private Stack<T> A;
     private Stack<T> B;
 
+    public StackBasedQueue() {
+        this.size = 0;
+        A = new Stack<>();
+        B = new Stack<>();
+    }
+
     /**
      * @return size of the queue
      */
