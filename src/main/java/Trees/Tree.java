@@ -9,6 +9,13 @@ public interface Tree<T> {
      */
     boolean isEmpty();
 
+
+    /**
+     * @param element to be added in the bst
+     * @return true if element is added, false otherwise
+     */
+    boolean add(T element);
+
     /**
      * @param element to be searched in the tree
      * @return true, if tree contains the element, false otherwise
@@ -25,10 +32,6 @@ public interface Tree<T> {
      */
     int diameter();
 
-    /**
-     * @param element to be inserted in the tree
-     */
-    void insert(T element);
 
     /**
      * @param element to be removed from the tree
