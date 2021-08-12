@@ -1,5 +1,7 @@
 package Trees;
 
+import javax.sound.midi.Soundbank;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -285,44 +287,34 @@ public class BinarySearchTree<T extends Comparable<T>> {
     /**
      * @return level order traversal of the tree or BFS
      */
-    public List<List<T>> levelOrderTraversal() {
+    public void levelOrderTraversal() {
         //List to store the final output
-        List<List<T>> output = new ArrayList<>();
+        //List<List<T>> output = new ArrayList<>();
         //Base case
         if (root == null) {
-            return output;
+            System.out.println("No tree");
+            return;
         }
         //Queue to store nodes
-        Queue<Node> nodes = new LinkedList<>();
+        Queue<Node> queue = new LinkedList<>();
         //Add root to the queue
-        nodes.add(root);
+        queue.add(root);
         //Loop until the queue is empty
-        while (!nodes.isEmpty()) {
-            //Get the size of the queue. This represents nodes
-            //at current level
-            int size = nodes.size();
-            //List of nodes at current level
-            List<T> currentLevelNodes = new ArrayList<>();
-            //Loop for every node at given level
-            for (int i = 0; i < size; i++) {
-                //Current node
-                Node current = nodes.poll();
-                //Add this node to the list
-                if (current != null) {
-                    currentLevelNodes.add(current.data);
-                    //Check for left and right children
-                    if (current.left != null) {
-                        nodes.add(current.left);
-                    }
-                    if (current.right != null) {
-                        nodes.add(current.right);
-                    }
-                }
+        while (!queue.isEmpty()) {
+            //Remove present head
+            Node temp = queue.poll();
+            System.out.println(temp.data + " ");
+
+            //Enqueue left child
+            if (temp.left != null) {
+                queue.add(temp.left);
             }
-            //Add current level nodes to output list
-            output.add(currentLevelNodes);
+
+            //Enqueue right child
+            if (temp.right != null) {
+                queue.add(temp.right);
+            }
         }
-        return output;
     }
 
     /**
