@@ -1,6 +1,9 @@
 package Trees;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class BinarySearchTree<T extends Comparable<T>> {
 
@@ -214,6 +217,112 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return Math.max(left, right) + 1;
         //OR
         //return Math.max(height(node.left), height(node.right)) + 1;
+    }
+
+    /**
+     * @return preorder traversal of tree i.e. Node -> L -> R
+     */
+    public List<T> preorderTraversal() {
+        List<T> output = new ArrayList<>();
+        preorderTraversal(root, output);
+        return output;
+    }
+
+    private void preorderTraversal(Node node, List<T> output) {
+        if (node == null)
+            return;
+
+        //Add current node's data to the list
+        output.add(node.data);
+        //Traverse left subtree
+        preorderTraversal(node.left, output);
+        //Traverse right subtree
+        preorderTraversal(node.right, output);
+    }
+
+    /**
+     * @return inorder traversal of tree i.e.  L -> Node -> R
+     */
+    public List<T> inorderTraversal() {
+        List<T> output = new ArrayList<>();
+        inorderTraversal(root, output);
+        return output;
+    }
+
+    private void inorderTraversal(Node node, List<T> output) {
+        if (node == null)
+            return;
+
+        // Traverse left subtree
+        inorderTraversal(node.left, output);
+        //Add current node's data to the list
+        output.add(node.data);
+        //Traverse right subtree
+        inorderTraversal(node.right, output);
+    }
+
+    /**
+     * @return postorder traversal of tree i.e.  L -> R -> Node
+     */
+    public List<T> postorderTraversal() {
+        List<T> output = new ArrayList<>();
+        postorderTraversal(root, output);
+        return output;
+    }
+
+    private void postorderTraversal(Node node, List<T> output) {
+        if (node == null)
+            return;
+
+        // Traverse left subtree
+        postorderTraversal(node.left, output);
+        //Traverse right subtree
+        postorderTraversal(node.right, output);
+        //Add current node's data to the list
+        output.add(node.data);
+    }
+
+    /**
+     * @return level order traversal of the tree or BFS
+     */
+    public List<List<T>> levelOrderTraversal() {
+        //List to store the final output
+        List<List<T>> output = new ArrayList<>();
+        //Base case
+        if (root == null) {
+            return output;
+        }
+        //Queue to store nodes
+        Queue<Node> nodes = new LinkedList<>();
+        //Add root to the queue
+        nodes.add(root);
+        //Loop until the queue is empty
+        while (!nodes.isEmpty()) {
+            //Get the size of the queue. This represents nodes
+            //at current level
+            int size = nodes.size();
+            //List of nodes at current level
+            List<T> currentLevelNodes = new ArrayList<>();
+            //Loop for every node at given level
+            for (int i = 0; i < size; i++) {
+                //Current node
+                Node current = nodes.poll();
+                //Add this node to the list
+                if (current != null) {
+                    currentLevelNodes.add(current.data);
+                    //Check for left and right children
+                    if (current.left != null) {
+                        nodes.add(current.left);
+                    }
+                    if (current.right != null) {
+                        nodes.add(current.right);
+                    }
+                }
+            }
+            //Add current level nodes to output list
+            output.add(currentLevelNodes);
+        }
+        return output;
     }
 
     /**
