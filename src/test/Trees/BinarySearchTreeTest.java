@@ -10,10 +10,16 @@ class BinarySearchTreeTest {
 
     @BeforeEach
     void setUp() {
-        int[] elements = {5, 7, 1, 6, 3, 9, 2, 8, 4, 0};
+        int[] elements = {5, 7, 1, 6, 3, 9, 2, 8, 4, 0, 20, 25, 30};
         for (int element : elements) {
             testBST.add(element);
         }
+    }
+
+
+    @Test
+    void height() {
+        System.out.println(testBST.height());
     }
 
     @Test
