@@ -204,10 +204,16 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return height(root);
     }
 
-    //Height of tree is max distance a node has from the root in the whole tree
+    //Height of tree is distance of root node from the deepest node in the tree i.e.  1 + no of edges on the longest path from root to deepest leaf or number of nodes from root to deepest leaf including both
+    //So, height of tree will be the MAX(Height of root's left subtree, Height of root's right subtree) + 1
+    //An additional one is for the edge from root to either left or right subtree whichever is longer
     private int height(Node node) {
         if (node == null) return 0;
-        return Math.max(height(node.left), height(node.right)) + 1;
+        int left = height(node.left);
+        int right = height(node.right);
+        return Math.max(left, right) + 1;
+        //OR
+        //return Math.max(height(node.left), height(node.right)) + 1;
     }
 
     /**
