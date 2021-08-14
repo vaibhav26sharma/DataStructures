@@ -139,7 +139,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
                 // Go into the right subtree and remove the leftmost node we
                 // found and swapped data with. This prevents us from having
                 // two nodes in our tree with the same value.
-                node.right = remove(node.right, tmp.data);
+                node.right = remove(node.right, tmp.data); //Here node is node of the elem which is to be removed, just has data same as min in its right subtree. Here removing that min node from right subtree
+                //since now elem's node will have that value. So now, the right of elem's node will be right of min node
 
                 // If instead we wanted to find the largest node in the left
                 // subtree as opposed to smallest node in the right subtree
@@ -150,7 +151,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
             }
         }
-        return null;
+        return node;
     }
 
     // Helper method to find the leftmost node (which has the smallest value)
@@ -291,8 +292,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
         //List to store the final output
         //List<List<T>> output = new ArrayList<>();
         //Base case
+
         if (root == null) {
-            System.out.println("No tree");
+            -
+                    System.out.println("No tree");
             return;
         }
         //Queue to store nodes

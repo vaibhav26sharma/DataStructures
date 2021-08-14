@@ -18,8 +18,14 @@ class BinarySearchTreeTest {
 
 
     @Test
-    void height() {
+    void testHeight() {
         System.out.println(testBST.height());
+    }
+
+    @Test
+    void testLevelOrderTraversal() {
+        testBST.remove(9);
+        testBST.levelOrderTraversal();
     }
 
     @Test
@@ -36,7 +42,14 @@ class BinarySearchTreeTest {
     }
 
     @Test
-    void remove() {
+    void testRemove() {
+        // Try removing an element which doesn't exist
+        //BinarySearchTree<Character> tree = new BinarySearchTree<>();
+        //tree.add('A');
+        //assertEquals(1, tree.size());
+        //assertTrue(testBST.remove(5));
+        //assertFalse(testBST.isEmpty());
+
     }
 
     @Test
