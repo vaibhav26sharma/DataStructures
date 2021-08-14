@@ -294,8 +294,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         //Base case
 
         if (root == null) {
-            -
-                    System.out.println("No tree");
+            System.out.println("No tree");
             return;
         }
         //Queue to store nodes
