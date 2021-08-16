@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinHeap<T extends Comparable<T>> implements Heap<T> {
+    
 
     //Internal list to store hte elements of the heap
     private final List<T> elements;
