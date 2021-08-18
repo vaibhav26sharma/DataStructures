@@ -1,92 +1,138 @@
 package cache;
 
 import java.util.HashMap;
+import java.util.Map;
 
-public class LRUCache {
-    //Entry will have the value
-    HashMap<Integer, Entry> hashmap;
-    Entry head, tail;
-    int LRU_SIZE = 4;
+public class LRUCache<K, V> {
 
-    public LRUCache() {
-        hashmap = new HashMap<Integer, Entry>();
+    private final int capacity;
+    //Map to store key and Node(containing values) of the cache
+    private final Map<K, Entry<K, V>> entries;
+    private int size;
+    private Entry<K, V> head;
+    private Entry<K, V> tail;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.entries = new HashMap<>();
     }
 
-    public int getEntry(int key) {
-        if (hashmap.containsKey(key)) {
-            Entry entry = hashmap.get(key);
-            //Remove accessed record from its position
-            //since it wl be moved to frnt nw
-            removeNode(entry);
-            //move accessed entry to front/top
-            addToTop(entry);
+    static class Entry<K, V> {
+        private final K key;
+        private V value;
+        private Entry<K, V> previous;
+        private Entry<K, V> next;
+
+        public Entry(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    /**
+     * @param key - to be searched in the cache
+     * @return value associated with key
+     */
+    public V get(K key) {
+        // Check if the cache contains the key
+        if (entries.containsKey(key)) {
+            // Get the entry corresponding to the key
+            Entry<K, V> entry = entries.get(key);
+            // Delete node from its current position & adjust pointers of its adjacent nodes
+            deleteNode(entry);
+            // Add this node to the front/head of the list
+            updateHead(entry);
             return entry.value;
         }
-        return -1;
+        return null;
     }
 
-    public void putEntry(int key, int value) {
-        //if already exists then just make it most recent
-        //update its value
-        //and move it to the top
-        if (hashmap.containsKey(key)) {
-            Entry entry = hashmap.get(key);
+    /**
+     * @param key   - key of the object to be cached
+     * @param value - value of the object to be cached
+     */
+    public void set(K key, V value) {
+        // If the key is already present in the cache,
+        // we will update the value
+        if (entries.containsKey(key)) {
+            Entry<K, V> entry = entries.get(key);
+            // Update the value
             entry.value = value;
-            removeNode(entry);
-            addToTop(entry);
-        } else {
-            Entry newNode = new Entry();
-            newNode.left = null;
-            newNode.right = null;
-            newNode.value = value;
-            newNode.key = key;
-
-            //if LRU size is reached,
-            //remove LRU node from tail
-            //and add new one at the top
-            if (hashmap.size() > LRU_SIZE) {
-                hashmap.remove(tail.key);
-                removeNode(tail);
-                addToTop(newNode);
+            // Delete node from its current position & adjust pointers of its neighbors
+            deleteNode(entry);
+            // Add this node to the front/head of the list
+            updateHead(entry);
+        }
+        // If this is a new key, we will have to evict the
+        // least recently used entry and put this one, if
+        // the cache is full
+        else {
+            // Create a new node
+            Entry<K, V> entry = new Entry<>(key, value);
+            // If the cache is full
+            if (size >= capacity) {
+                // Remove the node from the tail which is
+                // least recently used
+                entries.remove(tail.key);
+                // Delete node from its current position
+                deleteNode(tail);
             }
-            //if map has space, add new entry to top
-            else {
-                addToTop(newNode);
-            }
+            // Add this node to the front/head of the list
+            updateHead(entry);
+            entries.put(key, entry);
+            size++;
         }
     }
 
-    public void addToTop(Entry node) {
-        //Since node will be head now, old head will be node.right
-        node.right = head;
-        node.left = null;
-        if (head != null) {
-            head.left = node;
+    public void delete(K key) {
+        if (!entries.containsKey(key)) {
+            throw new RuntimeException("key is not present");
         }
-        head = node;
-        if (tail == null) {
-            tail = head;
+        deleteNode(entries.get(key));
+        entries.remove(key);
+        size--;
+    }
+
+    private void updateHead(Entry<K, V> entry) {
+        // Make current head as the next of the passed node
+        entry.next = head;
+        // Make previous of the passed node as null
+        entry.previous = null;
+        // If the current head is not null
+        if (head != null)
+            head.previous = entry;
+        head = entry;
+        // If there is only one node
+        if (tail == null)
+            tail = entry;
+    }
+
+    private void deleteNode(Entry<K, V> entry) {
+        //if given node is not head
+        if (entry.previous != null) {
+            entry.previous.next = entry.next;
+        }
+        // If the given entry is the head
+        else {
+            head = entry.next;
+        }
+        // If the given entry is not the tail
+        if (entry.next != null) {
+            entry.next.previous = entry.previous;
+        }
+        // If the given entry is the tail
+        else {
+            tail = entry.previous;
         }
     }
 
-    public void removeNode(Entry node) {
-        if (node.left != null) {
-            node.left.right = node.right;
-        } else {//if node was the head
-            head = node.right;
-        }
-
-        if (node.right != null) {
-            node.right.left = node.left;
-        } else {
-            tail = node.left;
-        }
+    /**
+     * Empties the cache
+     */
+    public void clear() {
+        entries.clear();
+        head = null;
+        tail = null;
+        size = 0;
     }
-}
-
-class Entry {
-    int value;
-    int key;
-    Entry left;
-    Entry right;
 }
