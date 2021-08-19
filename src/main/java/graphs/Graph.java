@@ -1,5 +1,7 @@
 package graphs;
 
+import java.util.List;
+
 public interface Graph<T> {
     /**
      * @param u - value of the vertex to be added
@@ -40,4 +42,16 @@ public interface Graph<T> {
      * @return number of nodes coming to this edge
      */
     int inDegree(T u);
+
+    /**
+     * @param u - source vertex
+     * @return List of vertices in BFS
+     */
+    List<T> bfs(T u);
+
+    /**
+     * @param u - source vertex
+     * @return List of vertices in DFS
+     */
+    List<T> dfs(T u);
 }
