@@ -111,6 +111,7 @@ public class UndirectedGraph<T> implements Graph<T> {
         return 0;
     }
 
+
     /**
      * @return number of vertices in the graph
      */
@@ -161,5 +162,78 @@ public class UndirectedGraph<T> implements Graph<T> {
             sb.append("\n");
         }
         return sb.toString();
+    }
+
+    /**
+     * @param u - source vertex
+     * @return List of vertices in BFS
+     */
+    @Override
+    public List<T> bfs(T u) {
+        //List to store the output
+        List<T> output = new ArrayList<>();
+        //Set to store all the visited nodes
+        Set<T> visited = new HashSet<>();
+        //Queue to store all the nodes in BFS
+        Queue<T> nodes = new LinkedList<>();
+        //Add source node to the queue and mark visited
+        nodes.add(u);
+        visited.add(u);
+
+        //Loop until the queue is empty
+        while (!nodes.isEmpty()) {
+            //Poll a node from the queue and add it to output
+            T current = nodes.poll();
+            output.add(current);
+
+            //Get all the adjacent nodes of popped vertex
+            for (T node : adjacencyList.get(u)) {
+                //Add node/vertex only if it is not visited already
+                if (!visited.contains(node)) {
+                    visited.add(node);
+                    nodes.add(node);
+                }
+            }
+        }
+        return output;
+    }
+
+    /**
+     * @param u - source vertex
+     * @return List of vertices in DFS
+     */
+    @Override
+    public List<T> dfs(T u) {
+        //List to store the output
+        List<T> output = new ArrayList<>();
+        //Set to store all the visited nodes
+        Set<T> visited = new HashSet<>();
+        //Queue to store all the nodes in BFS
+        Stack<T> nodes = new Stack<>();
+        //Push the source node to the stack
+        nodes.push(u);
+        visited.add(u);
+        while (!nodes.isEmpty()) {
+            // Get the top of the stack
+            T current = nodes.pop();
+            // If the node is not visited before, then only we
+            // will add it to the output
+            if (!visited.contains(current)) {
+                visited.add(current);
+                output.add(current);
+            }
+
+            // Get all the vertices which are neighbors of the
+            // popped vertex and if they are not visited before,
+            // add them to the stack
+            for (T node : adjacencyList.get(current)) {
+                if (!visited.contains(node)) {
+                    nodes.push(node);
+                    visited.add(node);
+                }
+            }
+
+        }
+        return output;
     }
 }
