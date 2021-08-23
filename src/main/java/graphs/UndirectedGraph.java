@@ -108,7 +108,7 @@ public class UndirectedGraph<T> implements Graph<T> {
      */
     @Override
     public int inDegree(T u) {
-        return 0;
+        return adjacencyList.get(u).size();
     }
 
 
@@ -187,7 +187,7 @@ public class UndirectedGraph<T> implements Graph<T> {
             output.add(current);
 
             //Get all the adjacent nodes of popped vertex
-            for (T node : adjacencyList.get(u)) {
+            for (T node : adjacencyList.get(current)) {
                 //Add node/vertex only if it is not visited already
                 if (!visited.contains(node)) {
                     visited.add(node);
@@ -212,7 +212,6 @@ public class UndirectedGraph<T> implements Graph<T> {
         Stack<T> nodes = new Stack<>();
         //Push the source node to the stack
         nodes.push(u);
-        visited.add(u);
         while (!nodes.isEmpty()) {
             // Get the top of the stack
             T current = nodes.pop();
@@ -229,7 +228,6 @@ public class UndirectedGraph<T> implements Graph<T> {
             for (T node : adjacencyList.get(current)) {
                 if (!visited.contains(node)) {
                     nodes.push(node);
-                    visited.add(node);
                 }
             }
 
